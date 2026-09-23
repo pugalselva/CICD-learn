@@ -1,21 +1,25 @@
 name: CI Pipeline
 
 on:
-    push:
-      branch:
-       - main
+  push:
+    branches:
+      - main
 
 jobs:
-    test-on: ubuntu-latest
+  test-on:
+    runs-on: ubuntu-latest
     steps:
-        - name: Checkout code
-          uses: action/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-        - name: Setup Node.js
-          uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Specify your Node.js version
+          cache: 'npm'       # Optional: Caches dependencies for faster runs
 
-        - name: Install Dependencies
-          run: npm Install
+      - name: Install Dependencies
+        run: npm install     # Fixed capitalization typo ("Install" -> "install")
 
-        - name: Run Tests
-          run: npm test  
+      - name: Run Tests
+        run: npm test
